@@ -9,28 +9,38 @@ class Sim:
         self.P_out=0
         self.df = df
 
+    def interpolate(self, T, v1_lower, v1_upper, v2_lower, v2_upper):
+        try:
+            v1_lower = float(v1_lower)
+            v1_upper = float(v1_upper)
+            v2_lower = float(v2_lower)
+            v2_upper = float(v2_upper)
+        except ValueError:
+            print("interpolat parameters were incorrect")
+
+        m = (v2_upper - v2_lower) / (v1_upper - v1_lower)
+        b = v2_upper - (v1_upper * m)
+        return T * m + b
+
+
+
     def v_lookup(self,value1, value2, T):
         # Identify Indexis to interpolate from
 
         i = 0
-        ls1 = self.df[value1]
-        ls2 = self.df[value2]
+        ls1 = self.df[value1].values
+        ls2 = self.df[value2].values
 
-        while ls1[i] < T:
+        # try:
+        while ls1[i] < T and i < len(ls1) - 1:
+            print(i)
             i += 1
-        print(ls1[i])
-        print('Input Temperature value',T)
+    
+        v1_lower = ls1[i - 1]
+        v1_upper = ls1[i]
+        v2_lower = ls2[i - 1]
+        v2_upper = ls2[i]
+        # except IndexError:
+        #     return None
 
-        # Interpolate
-        v1_lower = ls1[i]
-        v2_upper = ls1[i + 1]
-        value_lower = ls2[i]
-        value_upper = ls2[i + 1]
-
-        m = (value_upper - value_lower) / (v2_upper - v1_lower)
-        b = value_upper - (v2_upper * m)
-
-        # calc  value
-        value = T * m + b
-
-        return value
+        return self.interpolate(T, v1_lower, v1_upper, v2_lower, v2_upper)

@@ -12,5 +12,7 @@ class Pump(Sim):
 
         #update states
         v1 = self.v_lookup('P_kPa','S_volume', P_in)
+        if not v1:
+            return None
         self.P_out = self.n_p * self.w_p / v1 + P_in
         return self.P_out

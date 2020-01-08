@@ -18,6 +18,8 @@ class Solar(Sim):
             T_out2 = self.T_out
             T_m = (self.T_out + self.T_in) / 2
             cp = self.v_lookup('Temp','Cpf', T_m)
+            if not cp:
+                return None
             #upadte state
             self.T_out = (np.pi * D * L_radiation * q_dprime) / (m_dot * cp * 1000) + self.T_in
             error = abs(self.T_out - T_out2)
