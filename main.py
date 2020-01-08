@@ -18,6 +18,6 @@ if __name__ == "__main__":
     solar = Solar(df)
     pump = Pump(df, n_p, w_p)
     root = Tk()
-    root.title("solar temperature")
+    root.title("Heat Transfer Sim")
     app = Application(root, solar, pump)
     root.mainloop()

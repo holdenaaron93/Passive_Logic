@@ -19,26 +19,27 @@ from tkinter import *
 
 class Application(Frame):
     def __init__(self,root,solar,pump):
+        super(Application, self).__init__()
+        Frame.__init__(self,root)
         self.root = root
-        Frame.__init__(self.root)
         self.solar = solar
         self.pump = pump
         self.grid()
         self.create_sliders()
 
-    def handle_solar_run(self):
+    def handle_solar_run(self,x):
         T_out = self.solar.run(self.T_out_tank_s.get(), 
                                self.D_s.get(), 
                                self.m_s.get(), 
                                self.L_s.get(), 
                                self.solar_s.get())
+        #print(T_out)
 
-        print(T_out)
         ## this is where you would use the value for T_out for displaying on GUI
 
-    def handle_pump_run(self):
-        P_out = self.pump.run(self.v_lookup('Temp', 'P_kPa', self.handle_solar_run()))
-        print(P_out)
+    def handle_pump_run(self,x):
+        P_out = self.pump.run(self.pump.v_lookup('Temp', 'P_kPa', self.handle_solar_run(x)))
+        #print(P_out)
 
     def create_sliders(self):
 
