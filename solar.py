@@ -9,10 +9,8 @@ class Solar(Sim):
 
     def run(self,T_in, D, m_dot, L_radiation, q_dprime):
         self.T_out = 98 ##Guess Value
+        self.T_in = T_in
         error = 1
-
-        ## in order to make this a more object oriented approach, there
-        ## would be a function 
 
         while error >= .0001:
             T_out2 = self.T_out
@@ -24,5 +22,5 @@ class Solar(Sim):
             self.T_out = (np.pi * D * L_radiation * q_dprime) / (m_dot * cp * 1000) + self.T_in
             error = abs(self.T_out - T_out2)
 
-        print(self.T_out)
+
         return self.T_out

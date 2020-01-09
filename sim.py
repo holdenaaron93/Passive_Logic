@@ -33,7 +33,6 @@ class Sim:
 
         # try:
         while ls1[i] < T and i < len(ls1) - 1:
-            print(i)
             i += 1
     
         v1_lower = ls1[i - 1]

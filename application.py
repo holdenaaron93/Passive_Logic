@@ -1,5 +1,6 @@
 
 from tkinter import *
+import numpy as np
 
 """
         self.T_in = app.T_out_tank_s.get()
@@ -33,8 +34,13 @@ class Application(Frame):
                                self.m_s.get(), 
                                self.L_s.get(), 
                                self.solar_s.get())
-        #print(T_out)
 
+
+        solar_T_out = Label(self.root, text = 'Solar Heating Outlet Temperature = ')
+        solar_T_outv = Label(self.root,text = np.around(T_out,decimals=1))
+
+        solar_T_out.grid(row = 2, column = 2)
+        solar_T_outv.grid(row = 2, column = 3)
         ## this is where you would use the value for T_out for displaying on GUI
 
     def handle_pump_run(self,x):
@@ -60,10 +66,8 @@ class Application(Frame):
 
         Air_l = Label(self.root, text="Ambient Air Temp")
         self.Air_s = Scale(self.root, from_=10, to=75, orient=HORIZONTAL, command=self.handle_pump_run)
-        #self.Air_s = Scale(root, from_=10, to=75, orient=HORIZONTAL, command=handle_pump_run)
 
-        #Solar_T_out = Label(root,text=sim.T_out)
-
+        ##set slider initial values
         self.solar_s.set(2000)
         self.D_s.set(.06)
         self.L_s.set(6.65)
@@ -71,6 +75,7 @@ class Application(Frame):
         self.T_out_tank_s.set(20)
         self.Air_s.set(25)
 
+        #Snap labels and scales to gui
         solar_l.grid()
         self.solar_s.grid()
         D_l.grid()
