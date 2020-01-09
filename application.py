@@ -20,7 +20,7 @@ class Application(Frame):
                                self.solar_s.get())
 
         if T_out > 112:
-            solar_T_outv = Label(self.root, text='Boiled!')
+            solar_T_outv = Label(self.root, text='Boil!')
 
 
         #Creat GUI Widgets
